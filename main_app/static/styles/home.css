@@ -1,0 +1,55 @@
+body {
+  background-color: rgb(255, 255, 255);
+}
+
+.navbarbrand {
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: xx-large;
+  color: rgb(238, 211, 217);
+  text-decoration: none;
+  /* text-decoration-color: ; */
+}
+
+.navbarbrand:hover {
+  color: rgb(225, 172, 172);
+  text-decoration: none;
+}
+
+.textmedium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: xxx-large;
+}
+
+.text1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: xx-large;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: rgb(181, 192, 208);
+  text-decoration: none;
+  font-size: large;
+}
+
+.poppins-medium:hover {
+  color: rgb(104, 109, 118);
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.linkun {
+  text-decoration: none;
+}

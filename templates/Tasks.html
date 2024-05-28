@@ -1,0 +1,164 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{%bootstrap_javascript%}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+    <link rel="stylesheet" href="{% static 'styles/Tasks.css'%}" />
+
+</head>
+
+<body class="body">
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid">
+            <a class="navbarbrand ms-4 link-offset-2 link-underline link-underline-opacity-0" href="#">Do It</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mt-2  mb-lg-0">
+                    <li class="nav-item">
+                        <a class="poppins-medium link-offset-2 link-underline link-underline-opacity-0 active ms-4"
+                            aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="poppins-medium link-offset-2 link-underline link-underline-opacity-0 active ms-4"
+                            aria-current="page" href="#">Blog</a>
+                    </li>
+
+
+                </ul>
+                <dev class=" ms-sm-4 ms-md-4 mt-2 ms-4">
+                    
+                    <a href="{%url 'logout'%}"><button class=" me-auto btn btn-outline-secondary me-lg-auto  " type="button">logout</button></a>
+
+                </dev>
+
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    
+    <div class="w-100 text-center d-flex justify-content-center bg-light  rounded-3">
+        <hr>
+        <div class="">
+            <div class="p-3">
+                <h2 class="text2 h1 ">New Task</h2>
+                <div class="d-inline-block ">
+                    <form action="{% url 'home' %}" method="post" class="create-todo-form">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                <h4 class="mt-2 text3">name :</h4>
+                                <input type="text" name="new-task" class="w-100" id="new-task" required>
+                                
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                <h4 class="mt-2 text3">label :</h4>
+                                <input type="text" class="input-group " id="task-label" name="task-label" required>
+
+                            </div>
+                        </div>
+                  
+                        <button  class="btn btn-outline-secondary mt-3 w-100"
+                            type="submit">Add Task</button>
+                    </form>
+                    {% if form.errors %}
+                    <div class="alert alert-danger mt-3">
+                        {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+
+                        {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+        <hr>
+
+    </div>
+ 
+        <div class="">
+            <h2 class="roboto-medium text-dark mt-5  text-center">Tasks</h2>
+            {% for i in page_obj %}
+                <div class="card Mb-3">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">{{ i.name }}</h5>
+                        <h5 class="card-title mb-0">{{i.label}}</h5>
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                                <button class="btn btn-sm btn-info" data-toggle="modal"
+                                    data-target="#editTodoModal_{{ i.id }}">
+                                    Edit
+                                </button>
+
+                                <div class="modal fade" id="editTodoModal_{{ i.id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="editTodoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editTodoModalLabel">Update Todo Item
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{% url 'update_task' i.id %}" method="post"
+                                                class="edit-task-form">
+                                                {% csrf_token %}
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="task_{{ i.id }}">Task</label>
+                                                        <input type="text" name="task_{{ i.id }}" id="task_{{ i.id }}"
+                                                            class="form-control" value="{{ i.name }}" required>
+                                                        <label for="task_{{ i.id }}">label</label>
+                                                        <input type="text" name="task_{{ i.id }}_label"
+                                                            id="task_{{ i.id }}_label" class="form-control"
+                                                            value="{{ i.label }}" required>
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="{% url 'complete_task' i.id %}" class="btn btn-sm btn-success">Completed</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="{% url 'delete_task' i.id %}" class="btn btn-sm btn-danger">Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+         
+
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

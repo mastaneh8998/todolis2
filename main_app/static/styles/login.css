@@ -1,0 +1,35 @@
+.poetsen-one-regular {
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: rgb(241, 238, 220);
+}
+
+.bgnav {
+  background-color: rgb(179, 200, 207);
+}
+body {
+  background-color: rgb(77, 134, 156);
+}
+
+.ibm-plex-sans-arabic-thin {
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+.font_arb {
+  font-family: "IBM Plex Sans Arabic";
+  color: rgb(77, 134, 156);
+}
+.text2 {
+  color: rgb(77, 134, 156);
+}
+.collcolor {
+  background-color: rgb(238, 247, 255);
+}
+.body {
+  background-color: rgb(122, 178, 178);
+}
+.textcolor{
+    color: rgb(122, 178, 178);
+}
